@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title></title>
+  <link href="http://localhost:4000/atom.xml" rel="self" />
+  <link href="http://localhost:4000/"/>
+  <updated>2025-04-06T02:41:52+02:00</updated>
+  <id>http://localhost:4000</id>
+  <author>
+    <name></name>
+  </author>
+  
+    <entry>
+      <title>Ethernaut writeup</title>
+      <link href="/posts/2025/04/04/Ethernaut-Writeup.html" />
+      <updated>2025-04-04T00:00:00+02:00</updated>
+      <id>/posts/2025/04/04/Ethernaut-Writeup</id>
+      <content type="html">My ethernaut writeups</content>
+    </entry>
+  
+    <entry>
+      <title>CVE journey</title>
+      <link href="/posts/2025/04/04/CVE-experience.html" />
+      <updated>2025-04-04T00:00:00+02:00</updated>
+      <id>/posts/2025/04/04/CVE-experience</id>
+      <content type="html">My experience on how I got my first CVE</content>
+    </entry>
+  
+</feed>

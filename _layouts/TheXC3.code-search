@@ -1,0 +1,39 @@
+# Query: TheXC3
+# ContextLines: 1
+
+24 results - 6 files
+
+_layouts/default.html:
+  29          <ul class="downloads">
+  30:           
+  31:           <li><a href="https://www.linkedin.com/in/arnau-sola-l%C3%B3pez-0582ab230/">Arnau Sola<strong>LinkedIn</strong></a></li>
+  32            <li><a href="https://github.com/kap-pa/">kappa<strong>Github</strong></a></li>
+
+_site/about.html:
+  55          <ul class="downloads">
+  56:           <li><a href="https://github.com/kap-pa/">kappa<strong>Github</strong></a></li>
+  57:           <li><a href="https://www.linkedin.com/in/arnau-sola-l%C3%B3pez-0582ab230/">Arnau Sola<strong>LinkedIn</strong></a></li>
+  58            
+
+_site/index.html:
+  55          <ul class="downloads">
+  56:           <li><a href="https://github.com/kap-pa/">kappa<strong>Github</strong></a></li>
+  57:           <li><a href="https://www.linkedin.com/in/arnau-sola-l%C3%B3pez-0582ab230/">Arnau Sola<strong>LinkedIn</strong></a></li>
+  58            
+
+_site/docs/SUPPORT.html:
+  55          <ul class="downloads">
+  56:           <li><a href="https://github.com/kap-pa/">kappa<strong>Github</strong></a></li>
+  57:           <li><a href="https://www.linkedin.com/in/arnau-sola-l%C3%B3pez-0582ab230//">Arnau Sola<strong>LinkedIn</strong></a></li>
+  58            
+
+_site/posts/2024/05/04/Ethernaut-Writeup.html:
+  57          <ul class="downloads">
+  58:           <li><a href="https://github.com/kap-pa/">kappa<strong>Github</strong></a></li>
+  59:           <li><a href="https://www.linkedin.com/in/arnau-sola-l%C3%B3pez-0582ab230/">Arnau Sola<strong>LinkedIn</strong></a></li>
+  60            
+_site/posts/2025/04/04/CVE-experience.html:
+  57          <ul class="downloads">
+  58:           <li><a href="https://github.com/kap-pa/">kappa<strong>Github</strong></a></li>
+  59:           <li><a href="https://www.linkedin.com/in/arnau-sola-l%C3%B3pez-0582ab230/">Arnau Sola<strong>LinkedIn</strong></a></li>
+  60           
