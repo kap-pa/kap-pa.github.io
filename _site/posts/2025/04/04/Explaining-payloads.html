@@ -24,7 +24,7 @@
 {"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"kappa"},"dateModified":"2025-04-04T00:00:00+02:00","datePublished":"2025-04-04T00:00:00+02:00","description":"Post explaining cool payloads that require some knowldedge of JS","headline":"XSS payloads explained","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/2025/04/04/Explaining-payloads.html"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/logo.jpg"},"name":"kappa"},"url":"http://localhost:4000/posts/2025/04/04/Explaining-payloads.html"}</script>
 <!-- End Jekyll SEO tag -->
 
-    <link rel="stylesheet" href="/assets/css/style.css?v=ebe82b2d644a0ca36c54d369dca6ff60b6b45ed9">
+    <link rel="stylesheet" href="/assets/css/style.css?v=928ec7720bcf29133a9263174d16ea815921fa2e">
     <!--[if lt IE 9]>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
     <![endif]-->
@@ -79,8 +79,11 @@
 <p>Sometimes I’m knee-deep in the hunt for a great XSS payload - one that works against different WAFs. Then, after some research, I stumble upon one ridicolous one-liner that looks written by the JavaScript creator and has 0 sense at first sight.
 Of course it’s not black magic. It’s just the work of a ridiculously smart security researcher who understand JavaScript .</p>
 
-<p>That’s why I’m writing this blog — to dissect these stupidly brilliant payloads, wrap my head around the JS behind them, and maybe (just maybe) level up from “script kiddie” to “kinda gets it”. I also feel like if I document them now, future me might actually remember how they work instead of ctrl+c ctrl+v them against an input bar xd.
-Special mention to the book JavaScript for hackers - it is the main reason I’m writting this blog, it is an amazing resource but I feel that I don’t even know the basics to get to understand fully the book.</p>
+<p>That’s why I’m writing this blog — to dissect these stupidly brilliant payloads, wrap my head around the JS behind them, and maybe (just maybe) level up from “script kiddie” to “kinda gets it”. I also feel like if I document them now, future me might actually remember how they work instead of ctrl+c ctrl+v them against an input bar xd.</p>
+
+<p><img src="/assets/img/commons/Explaining-Payloads/catmeme.png" alt="Resumen del soporte" class="center-image" style="width: 400px; height: 400px;display: block;   margin: 0 auto;" /></p>
+
+<p>Special mention to the book JavaScript for hackers - it is the main reason I’m writting this blog, it is an amazing resource but I feel that I don’t even know the basics to get to understand fully the book.</p>
 
 <h3 id="valueofalertwindow1">valueOf=alert;window+1</h3>
 
@@ -107,7 +110,7 @@ Special mention to the book JavaScript for hackers - it is the main reason I’m
 </code></pre></div></div>
 
 <p>Almost every object in js is an instance of Object. So to clarify, the philosophy of js is that every object is an instance of another.
-<img src="/assets/img/commons/Explaining-payloads/prototype.png" alt="Resumen del soporte" class="center-image" /></p>
+<img src="/assets/img/commons/Explaining-Payloads/prototype.png" alt="Resumen del soporte" class="center-image" /></p>
 
 <blockquote>
   <p>Primitives in JS</p>

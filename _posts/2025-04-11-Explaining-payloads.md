@@ -15,6 +15,10 @@ Sometimes I'm knee-deep in the hunt for a great XSS payload - one that works aga
 Of course it's not black magic. It's just the work of a ridiculously smart security researcher who understand JavaScript .
 
 That’s why I’m writing this blog — to dissect these stupidly brilliant payloads, wrap my head around the JS behind them, and maybe (just maybe) level up from "script kiddie" to "kinda gets it". I also feel like if I document them now, future me might actually remember how they work instead of ctrl+c ctrl+v them against an input bar xd.
+
+<img src="{{ 'assets/img/commons/Explaining-Payloads/catmeme.png' | relative_url }}" alt="Resumen del soporte" class="center-image" style="width: 400px; height: 400px;display: block;
+  margin: 0 auto;" />
+
 Special mention to the book JavaScript for hackers - it is the main reason I'm writting this blog, it is an amazing resource but I feel that I don't even know the basics to get to understand fully the book. 
 
 ### valueOf=alert;window+1
@@ -39,7 +43,7 @@ const exampleobject = {
 ```
 
 Almost every object in js is an instance of Object. So to clarify, the philosophy of js is that every object is an instance of another.
-![Resumen del soporte]({{ 'assets/img/commons/Explaining-payloads/prototype.png' | relative_url }}){: .center-image }
+![Resumen del soporte]({{ 'assets/img/commons/Explaining-Payloads/prototype.png' | relative_url }}){: .center-image }
 
 > Primitives in JS
 
