@@ -3,7 +3,7 @@ layout: post
 title: "Parenthesisless XSS"
 categories: posts
 description: Post explaining cool payloads that require some knowldedge of JS
-date: 2025-04-04 
+date: 2025-12-04 
 en: true
 authors: 
     - kappa
