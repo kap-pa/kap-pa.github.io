@@ -19,7 +19,7 @@ That’s why I’m writing this blog — to dissect these stupidly brilliant pay
 <img src="{{ 'assets/img/commons/Parenthesisless-XSS/catmeme.png' | relative_url }}" alt="Resumen del soporte" class="center-image" style="width: 400px; height: 400px;display: block;
   margin: 0 auto;" />
 
-Special mention to the book JavaScript for hackers - it is the main reason I'm writting this blog, it is an amazing resource but I feel that I don't even know the basics to get to understand fully the book. 
+Special mention to the book JavaScript for hackers - it is the main reason I'm writting this blog, it is an amazing resource but I feel that I don't even know the basics to get to fully understand the book. 
 
 ### valueOf=alert;window+1
 
@@ -47,7 +47,7 @@ Almost every object in js is an instance of Object. So to clarify, the philosoph
 
 > Primitives in JS
 
-Basic and fundamental values that aren not an object and has no methods or properties. Nevetheless js have different ways for accessing some methods via autoboxing.
+Basic and fundamental values that are not an object and have no methods or properties. Nevertheless js have different ways for accessing some methods via autoboxing.
 Types of primitives: `string, number, boolean, null, undefined, symbol, biging`
 Primitives have the following properties:
 1. Inmutable - They can't be modified after their creation
@@ -56,7 +56,7 @@ Primitives have the following properties:
 
 > Autoboxing
 
-js temporarilty wraps a primitive value in an object so you can access properties or methods that belong to its corresponding object type. 
+js temporarily wraps a primitive value in an object so you can access properties or methods that belong to its corresponding object type. 
 **Example**
 ```js
 const name = "kappa";
@@ -88,4 +88,22 @@ This payload ``valueOf=alert; window+1`` is a brilliant example of how understan
 
 Javascript automatically calls `valueOf()` or `toString()` when an object is used in a context of a primitive (like `+` operations). So the first step is to override `window.valueOf` with the function that we want to call. In this case we use the window context the function `alert` needs to be called in a context (this) of a window.
 
-However this payload doesn't allow to pass arguments to the function. This is very well covered in the next few pages of the book and I feel that I can't provide anything more usefull than what is already written there. 
+#### Personal improvements
+
+When understanding this payload I faced the problem of passing arguments to the function in order to have real impact on the application (as Gareth Heyes did). I started researching about how I possibly could pass arguments to a function without `()` - Initially I tried to modify the arguments inside the function with the `call` function or accessing the `arguments[0]` property. However arguments is only accessible inside the creation of the function and the call function led me to a strange payload that did the same as the one that I ended up getting.
+
+> call
+
+Call is a property of every function that allows you to call it and change the context (this value) and subsequent arguments. So my approach was to leverage this function to change the arguments, but it is impossible without ()
+
+```javascript
+valueOf=alert;valueOf['call'](window,1337) // Cool one without . - but not without () that is the objective
+valueOf=alert;valueOf.call(window,1337) // Uses ()
+```
+
+
+It seems so cool! But is totally useless to be honest xD. Even if I could use backticks as tagged templates and could change the arguments it would lead to the same result as doing simply:
+```javascript
+valueOf=alert`1337`;window+1
+```
+So this is my small contribution, it is not a new attack vector and it's not any innovative research, but I'm looking forward to find new way to call JavaScript without parenthesis. I know it is a vast sea and a very hard topic but writting this post scratched that part of my mind and motivated me to research a little bit more.

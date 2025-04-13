@@ -24,7 +24,7 @@
 {"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"kappa"},"dateModified":"2025-04-12T00:00:00+02:00","datePublished":"2025-04-12T00:00:00+02:00","description":"Post explaining cool payloads that require some knowldedge of JS","headline":"Parenthesisless XSS","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/2025/04/12/Parenthesisless-XSS.html"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/logo.jpg"},"name":"kappa"},"url":"http://localhost:4000/posts/2025/04/12/Parenthesisless-XSS.html"}</script>
 <!-- End Jekyll SEO tag -->
 
-    <link rel="stylesheet" href="/assets/css/style.css?v=bc8202e4c998849f2a8eded9f8a0718fa43e07ec">
+    <link rel="stylesheet" href="/assets/css/style.css?v=8c4aa2f727bf893e720396599fa034aa03454671">
     <!--[if lt IE 9]>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
     <![endif]-->
@@ -83,7 +83,7 @@ Of course it’s not black magic. It’s just the work of a ridiculously smart s
 
 <p><img src="/assets/img/commons/Parenthesisless-XSS/catmeme.png" alt="Resumen del soporte" class="center-image" style="width: 400px; height: 400px;display: block;   margin: 0 auto;" /></p>
 
-<p>Special mention to the book JavaScript for hackers - it is the main reason I’m writting this blog, it is an amazing resource but I feel that I don’t even know the basics to get to understand fully the book.</p>
+<p>Special mention to the book JavaScript for hackers - it is the main reason I’m writting this blog, it is an amazing resource but I feel that I don’t even know the basics to get to fully understand the book.</p>
 
 <h3 id="valueofalertwindow1">valueOf=alert;window+1</h3>
 
@@ -116,7 +116,7 @@ Of course it’s not black magic. It’s just the work of a ridiculously smart s
   <p>Primitives in JS</p>
 </blockquote>
 
-<p>Basic and fundamental values that aren not an object and has no methods or properties. Nevetheless js have different ways for accessing some methods via autoboxing.
+<p>Basic and fundamental values that are not an object and have no methods or properties. Nevertheless js have different ways for accessing some methods via autoboxing.
 Types of primitives: <code class="language-plaintext highlighter-rouge">string, number, boolean, null, undefined, symbol, biging</code>
 Primitives have the following properties:</p>
 <ol>
@@ -129,7 +129,7 @@ Primitives have the following properties:</p>
   <p>Autoboxing</p>
 </blockquote>
 
-<p>js temporarilty wraps a primitive value in an object so you can access properties or methods that belong to its corresponding object type. 
+<p>js temporarily wraps a primitive value in an object so you can access properties or methods that belong to its corresponding object type. 
 <strong>Example</strong></p>
 <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">name</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">kappa</span><span class="dl">"</span><span class="p">;</span>
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">name</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">());</span> 
@@ -168,7 +168,24 @@ Primitives have the following properties:</p>
 
 <p>Javascript automatically calls <code class="language-plaintext highlighter-rouge">valueOf()</code> or <code class="language-plaintext highlighter-rouge">toString()</code> when an object is used in a context of a primitive (like <code class="language-plaintext highlighter-rouge">+</code> operations). So the first step is to override <code class="language-plaintext highlighter-rouge">window.valueOf</code> with the function that we want to call. In this case we use the window context the function <code class="language-plaintext highlighter-rouge">alert</code> needs to be called in a context (this) of a window.</p>
 
-<p>However this payload doesn’t allow to pass arguments to the function. This is very well covered in the next few pages of the book and I feel that I can’t provide anything more usefull than what is already written there.</p>
+<h4 id="personal-improvements">Personal improvements</h4>
+
+<p>When understanding this payload I faced the problem of passing arguments to the function in order to have real impact on the application (as Gareth Heyes did). I started researching about how I possibly could pass arguments to a function without <code class="language-plaintext highlighter-rouge">()</code> - Initially I tried to modify the arguments inside the function with the <code class="language-plaintext highlighter-rouge">call</code> function or accessing the <code class="language-plaintext highlighter-rouge">arguments[0]</code> property. However arguments is only accessible inside the creation of the function and the call function led me to a strange payload that did the same as the one that I ended up getting.</p>
+
+<blockquote>
+  <p>call</p>
+</blockquote>
+
+<p>Call is a property of every function that allows you to call it and change the context (this value) and subsequent arguments. So my approach was to leverage this function to change the arguments, but it is impossible without ()</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">valueOf</span><span class="o">=</span><span class="nx">alert</span><span class="p">;</span><span class="nx">valueOf</span><span class="p">[</span><span class="dl">'</span><span class="s1">call</span><span class="dl">'</span><span class="p">](</span><span class="nb">window</span><span class="p">,</span><span class="mi">1337</span><span class="p">)</span> <span class="c1">// Cool one without . - but not without () that is the objective</span>
+<span class="nx">valueOf</span><span class="o">=</span><span class="nx">alert</span><span class="p">;</span><span class="nx">valueOf</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nb">window</span><span class="p">,</span><span class="mi">1337</span><span class="p">)</span> <span class="c1">// Uses ()</span>
+</code></pre></div></div>
+
+<p>It seems so cool! But is totally useless to be honest xD. Even if I could use backticks as tagged templates and could change the arguments it would lead to the same result as doing simply:</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">valueOf</span><span class="o">=</span><span class="nx">alert</span><span class="s2">`1337`</span><span class="p">;</span><span class="nb">window</span><span class="o">+</span><span class="mi">1</span>
+</code></pre></div></div>
+<p>So this is my small contribution, it is not a new attack vector and it’s not any innovative research, but I’m looking forward to find new way to call JavaScript without parenthesis. I know it is a vast sea and a very hard topic but writting this post scratched that part of my mind and motivated me to research a little bit more.</p>
 
 
 
