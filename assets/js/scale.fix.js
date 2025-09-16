@@ -26,5 +26,3 @@
     }
 })(document);
 
-const GITHUB_PAT = "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";
-
